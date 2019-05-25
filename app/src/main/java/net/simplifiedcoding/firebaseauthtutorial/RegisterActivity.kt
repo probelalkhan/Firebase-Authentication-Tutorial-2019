@@ -21,18 +21,18 @@ class RegisterActivity : AppCompatActivity() {
 
 
         button_register.setOnClickListener {
-            val email = edit_text_email.text.toString().trim()
+            val email = text_email.text.toString().trim()
             val password = edit_text_password.text.toString().trim()
 
             if (email.isEmpty()) {
-                edit_text_email.error = "Email Required"
-                edit_text_email.requestFocus()
+                text_email.error = "Email Required"
+                text_email.requestFocus()
                 return@setOnClickListener
             }
 
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                edit_text_email.error = "Valid Email Required"
-                edit_text_email.requestFocus()
+                text_email.error = "Valid Email Required"
+                text_email.requestFocus()
                 return@setOnClickListener
             }
 

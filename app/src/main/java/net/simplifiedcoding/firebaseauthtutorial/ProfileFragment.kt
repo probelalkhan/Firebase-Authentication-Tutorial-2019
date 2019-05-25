@@ -10,7 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.io.ByteArrayOutputStream
@@ -18,8 +20,12 @@ import java.io.ByteArrayOutputStream
 
 class ProfileFragment : Fragment() {
 
+    private val DEFAULT_IMAGE_URL = "https://picsum.photos/200"
+
     private lateinit var imageUri: Uri
     private val REQUEST_IMAGE_CAPTURE = 100
+
+    private val currentUser = FirebaseAuth.getInstance().currentUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +38,61 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        currentUser?.let{ user ->
+            Glide.with(this)
+                .load(user.photoUrl)
+                .into(image_view)
+            edit_text_name.setText(user.displayName)
+            text_email.text = user.email
+
+            text_phone.text = if(user.phoneNumber.isNullOrEmpty()) "Add Number" else user.phoneNumber
+
+            if(user.isEmailVerified){
+                text_not_verified.visibility = View.INVISIBLE
+            }else{
+                text_not_verified.visibility = View.INVISIBLE
+            }
+        }
+
         image_view.setOnClickListener {
             takePictureIntent()
         }
+
+        button_save.setOnClickListener {
+
+            val photo = when{
+                ::imageUri.isInitialized -> imageUri
+                currentUser?.photoUrl == null -> Uri.parse(DEFAULT_IMAGE_URL)
+                else -> currentUser.photoUrl
+            }
+
+            val name = edit_text_name.text.toString().trim()
+
+            if(name.isEmpty()){
+                edit_text_name.error = "name required"
+                edit_text_name.requestFocus()
+                return@setOnClickListener
+            }
+
+            val updates = UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .setPhotoUri(photo)
+                .build()
+
+            progressbar.visibility = View.VISIBLE
+
+            currentUser?.updateProfile(updates)
+                ?.addOnCompleteListener{ task ->
+                    progressbar.visibility = View.INVISIBLE
+                    if(task.isSuccessful){
+                        context?.toast("Profile Updated")
+                    }else{
+                        context?.toast(task.exception?.message!!)
+                    }
+                }
+
+        }
+
     }
 
     private fun takePictureIntent() {

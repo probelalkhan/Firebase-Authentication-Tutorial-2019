@@ -23,15 +23,18 @@
                     android:layout_width="90dp"
                     android:layout_height="90dp"/>
 
-            <TextView
+            <EditText
+                    android:hint="Enter Name"
+                    android:textAlignment="center"
                     android:layout_marginTop="5dp"
                     android:textColor="@android:color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/image_view"
                     tools:text="Belal Khan"
-                    android:id="@+id/text_view_name"
-                    android:layout_width="wrap_content"
+                    android:enabled="true"
+                    android:id="@+id/edit_text_name"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"/>
 
             <ProgressBar
@@ -49,20 +52,21 @@
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:layout_below="@id/layoutHead"
-                android:layout_width="300dp"
+                android:layout_width="360dp"
                 android:layout_height="match_parent">
 
-            <EditText
-                    android:enabled="false"
+            <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:layout_gravity="top"
                     android:drawablePadding="16dp"
                     android:drawableLeft="@drawable/ic_email"
                     tools:text="probelalkhan@gmail.com"
-                    android:id="@+id/edit_text_email"
+                    android:id="@+id/text_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    android:id="@+id/text_not_verified"
                     android:visibility="invisible"
                     android:textColor="@android:color/holo_red_dark"
                     android:layout_gravity="right"
@@ -73,27 +77,18 @@
                     android:layout_height="wrap_content"/>
 
 
-            <EditText
+            <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:layout_gravity="top"
                     android:drawablePadding="16dp"
                     android:drawableLeft="@drawable/ic_phone"
-                    android:text="+917549161079"
-                    android:enabled="false"
-                    android:id="@+id/edit_text_phone"
+                    tools:text="+917549161079"
+                    android:enabled="true"
+                    android:id="@+id/text_phone"
                     android:layout_width="match_parent"
                     android:layout_marginBottom="20dp"
                     android:layout_height="wrap_content"/>
 
-            <EditText
-                    android:layout_gravity="top"
-                    android:drawablePadding="16dp"
-                    android:drawableLeft="@drawable/ic_point"
-                    tools:text="2340"
-                    android:enabled="false"
-                    android:id="@+id/edit_text_points"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="20dp"
-                    android:layout_height="wrap_content"/>
 
             <ProgressBar
                     android:id="@+id/progressbar"
@@ -102,7 +97,9 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
             <Button
+                    android:id="@+id/button_save"
                     android:layout_marginTop="15dp"
                     android:textColor="@android:color/white"
                     android:background="?colorPrimary"
