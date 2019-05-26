@@ -38,19 +38,19 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentUser?.let{ user ->
+        currentUser?.let { user ->
             Glide.with(this)
                 .load(user.photoUrl)
                 .into(image_view)
             edit_text_name.setText(user.displayName)
             text_email.text = user.email
 
-            text_phone.text = if(user.phoneNumber.isNullOrEmpty()) "Add Number" else user.phoneNumber
+            text_phone.text = if (user.phoneNumber.isNullOrEmpty()) "Add Number" else user.phoneNumber
 
-            if(user.isEmailVerified){
+            if (user.isEmailVerified) {
                 text_not_verified.visibility = View.INVISIBLE
-            }else{
-                text_not_verified.visibility = View.INVISIBLE
+            } else {
+                text_not_verified.visibility = View.VISIBLE
             }
         }
 
@@ -60,7 +60,7 @@ class ProfileFragment : Fragment() {
 
         button_save.setOnClickListener {
 
-            val photo = when{
+            val photo = when {
                 ::imageUri.isInitialized -> imageUri
                 currentUser?.photoUrl == null -> Uri.parse(DEFAULT_IMAGE_URL)
                 else -> currentUser.photoUrl
@@ -68,7 +68,7 @@ class ProfileFragment : Fragment() {
 
             val name = edit_text_name.text.toString().trim()
 
-            if(name.isEmpty()){
+            if (name.isEmpty()) {
                 edit_text_name.error = "name required"
                 edit_text_name.requestFocus()
                 return@setOnClickListener
@@ -82,17 +82,30 @@ class ProfileFragment : Fragment() {
             progressbar.visibility = View.VISIBLE
 
             currentUser?.updateProfile(updates)
-                ?.addOnCompleteListener{ task ->
+                ?.addOnCompleteListener { task ->
                     progressbar.visibility = View.INVISIBLE
-                    if(task.isSuccessful){
+                    if (task.isSuccessful) {
                         context?.toast("Profile Updated")
-                    }else{
+                    } else {
                         context?.toast(task.exception?.message!!)
                     }
                 }
 
         }
 
+
+        text_not_verified.setOnClickListener {
+
+            currentUser?.sendEmailVerification()
+                ?.addOnCompleteListener {
+                    if(it.isSuccessful){
+                        context?.toast("Verification Email Sent")
+                    }else{
+                        context?.toast(it.exception?.message!!)
+                    }
+                }
+
+        }
     }
 
     private fun takePictureIntent() {
@@ -122,19 +135,19 @@ class ProfileFragment : Fragment() {
         val upload = storageRef.putBytes(image)
 
         progressbar_pic.visibility = View.VISIBLE
-        upload.addOnCompleteListener{ uploadTask ->
+        upload.addOnCompleteListener { uploadTask ->
             progressbar_pic.visibility = View.INVISIBLE
 
-            if(uploadTask.isSuccessful){
+            if (uploadTask.isSuccessful) {
                 storageRef.downloadUrl.addOnCompleteListener { urlTask ->
-                    urlTask.result?.let{
+                    urlTask.result?.let {
                         imageUri = it
                         activity?.toast(imageUri.toString())
                         image_view.setImageBitmap(bitmap)
                     }
                 }
-            }else{
-                uploadTask.exception?.let{
+            } else {
+                uploadTask.exception?.let {
                     activity?.toast(it.message!!)
                 }
             }
