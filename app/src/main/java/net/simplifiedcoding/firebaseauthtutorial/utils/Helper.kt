@@ -1,8 +1,10 @@
-package net.simplifiedcoding.firebaseauthtutorial
+package net.simplifiedcoding.firebaseauthtutorial.utils
 
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import net.simplifiedcoding.firebaseauthtutorial.ui.HomeActivity
+import net.simplifiedcoding.firebaseauthtutorial.ui.LoginActivity
 
 fun Context.toast(message: String) =
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

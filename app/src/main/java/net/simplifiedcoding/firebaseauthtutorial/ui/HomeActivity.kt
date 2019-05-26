@@ -1,4 +1,4 @@
-package net.simplifiedcoding.firebaseauthtutorial
+package net.simplifiedcoding.firebaseauthtutorial.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +9,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home.*
+import net.simplifiedcoding.firebaseauthtutorial.R
+import net.simplifiedcoding.firebaseauthtutorial.utils.logout
 
 
 class HomeActivity : AppCompatActivity() {

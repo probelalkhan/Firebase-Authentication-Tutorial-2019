@@ -1,4 +1,4 @@
-package net.simplifiedcoding.firebaseauthtutorial
+package net.simplifiedcoding.firebaseauthtutorial.ui.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -10,11 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_profile.*
+import net.simplifiedcoding.firebaseauthtutorial.R
+import net.simplifiedcoding.firebaseauthtutorial.utils.toast
 import java.io.ByteArrayOutputStream
 
 
@@ -105,6 +108,11 @@ class ProfileFragment : Fragment() {
                     }
                 }
 
+        }
+
+        text_phone.setOnClickListener {
+            val action = ProfileFragmentDirections.actionVerifyPhone()
+            Navigation.findNavController(it).navigate(action)
         }
     }
 
