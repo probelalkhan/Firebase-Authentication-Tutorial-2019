@@ -11,10 +11,17 @@
               tools:layout="@layout/fragment_profile">
         <action android:id="@+id/actionVerifyPhone"
                 app:destination="@id/verifyPhoneFragment"/>
+        <action android:id="@+id/actionUpdateEmail"
+                app:destination="@id/updateEmailFragment"/>
     </fragment>
     <fragment android:id="@+id/verifyPhoneFragment"
               android:name="net.simplifiedcoding.firebaseauthtutorial.ui.fragments.VerifyPhoneFragment"
               android:label="Verify Phone" tools:layout="@layout/fragment_verify_phone">
         <action android:id="@+id/actionPhoneVerified" app:destination="@id/profileFragment"/>
+    </fragment>
+    <fragment android:id="@+id/updateEmailFragment"
+              android:name="net.simplifiedcoding.firebaseauthtutorial.ui.fragments.UpdateEmailFragment"
+              android:label="Update Email" tools:layout="@layout/fragment_update_email">
+        <action android:id="@+id/actionEmailUpdated" app:destination="@id/profileFragment"/>
     </fragment>
 </navigation>
