@@ -13,6 +13,8 @@
                 app:destination="@id/verifyPhoneFragment"/>
         <action android:id="@+id/actionUpdateEmail"
                 app:destination="@id/updateEmailFragment"/>
+        <action android:id="@+id/actionUpdatePassword"
+                app:destination="@id/updatePasswordFragment"/>
     </fragment>
     <fragment android:id="@+id/verifyPhoneFragment"
               android:name="net.simplifiedcoding.firebaseauthtutorial.ui.fragments.VerifyPhoneFragment"
@@ -23,5 +25,11 @@
               android:name="net.simplifiedcoding.firebaseauthtutorial.ui.fragments.UpdateEmailFragment"
               android:label="Update Email" tools:layout="@layout/fragment_update_email">
         <action android:id="@+id/actionEmailUpdated" app:destination="@id/profileFragment"/>
+    </fragment>
+    <fragment android:id="@+id/updatePasswordFragment"
+              android:name="net.simplifiedcoding.firebaseauthtutorial.ui.fragments.UpdatePasswordFragment"
+              android:label="Update Password" tools:layout="@layout/fragment_update_password">
+        <action android:id="@+id/actionPasswordUpdated"
+                app:destination="@id/profileFragment"/>
     </fragment>
 </navigation>

@@ -50,6 +50,10 @@ class LoginActivity : AppCompatActivity() {
         text_view_register.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
+
+        text_view_forget_password.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, ResetPasswordActivity::class.java))
+        }
     }
 
     private fun loginUser(email: String, password: String) {
